@@ -1,0 +1,67 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8
+
+logging:
+  config: classpath:logback.xml
+  level:
+    root: info
+    
+api:
+  title: 广东联通空间资源管理平台API
+  
+websecurity-url:
+  ignore:
+    matchers: /api/** #不需要走spring security流程
+  
+spring:
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+  application:
+    name: microservice-gateway  
+  security:
+    user:
+      name: admin
+      password: 123
+  datasource:
+    type: null
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://172.168.63.232:3307/test_xiongchaoqun
+    username: root
+    password: root
+
+security:
+  token:
+    store:
+      type: jdbc #redis
+  oauth2:
+    client:
+      client-id: client
+      client-secret: 123456
+      authorizedGrantTypes: client_credentials,password,refresh_token
+      scope: select 
+      authorities: user,admin #权限
+      
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+zuul:
+  host:
+    connect-timeout-millis: 2000
+    socket-timeout-millis: 4000
+  routes:
+    api:
+      path: /api/**
+      strip-prefix: true # true：url带上path，false：url不带path
+      serviceId: microservice-provider
+#  sensitive-headers: true #不会将请求中的Header属性转发给其他服务提供者
+  
+ribbon:
+  ReadTimeout: 3000
+  ConnectTimeout: 5000

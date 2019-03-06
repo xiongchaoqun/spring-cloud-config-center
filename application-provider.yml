@@ -1,0 +1,26 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8
+logging:
+  config: classpath:logback.xml
+  level:
+    root: debug
+api:
+  title: 广东联通空间资源管理平台API
+spring:
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+  security:
+    user:
+      name: admin
+      password: 123
+  application:
+    name: microservice-provider
+  datasource:
+    type: null
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://172.168.63.232:3307/test_xiongchaoqun
+    username: root
+    password: root
